@@ -1,0 +1,23 @@
+Package: kitools
+Title: Tools for Working with Data in Ki Analyses
+Version: 0.0.0.9000
+Authors@R: c(
+    person(given = "Patrick",
+           family = "Stout",
+           role = c("aut"),
+           email = "pstout@prevagroup.com"),
+    person(given = "Ryan",
+           family = "Hafen",
+           role = c("cre", "aut"),
+           email = "rhafen@gmail.com")
+    )
+Description: Tools for working with data in Ki analyses.
+License: Apache License 2.0 | file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    reticulate,
+    askpass
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat
