@@ -1,6 +1,10 @@
+[![Travis build status](https://travis-ci.org/ki-tools/kitools.svg?branch=master)](https://travis-ci.org/ki-tools/kitools-r)
+[![Coverage status](https://codecov.io/gh/ki-tools/kitools-r/branch/master/graph/badge.svg)](https://codecov.io/github/ki-tools/kitools-r?branch=master)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
 # kitools
 
-Tools for working with data in Ki analyses.
+Tools for working with data in Ki analyses. Based on an [earlier prototype](https://github.com/ki-tools/kitools) - see that package's [README](https://github.com/ki-tools/kitools#kitools) for more background. This is an an alpha stage of development and is built around the [kitools Python package](https://github.com/ki-tools/kitools-py).
 
 ## Installation
 
