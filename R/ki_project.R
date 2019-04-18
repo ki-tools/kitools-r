@@ -8,6 +8,8 @@
 #' @export
 ki_project <- function(local_path, title = NULL, description = NULL,
   project_uri = NULL, resources = NULL) {
+  if (!is_configured())
+    return(invisible(NULL))
   kitools <- reticulate::import("kitools")
   kitools$KiProject(local_path, title, description,
   project_uri, resources)

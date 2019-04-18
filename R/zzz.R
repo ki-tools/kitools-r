@@ -1,19 +1,22 @@
 #' @importFrom rminiconda find_miniconda_python
 .onLoad <- function(libname, pkgname) {
+  is_configured()
+}
+
+is_configured <- function() {
   py <- suppressWarnings(rminiconda::find_miniconda_python("kitools"))
   if (!file.exists(py)) {
-    config_message()
+    message("It appears that kitools has not been configured...")
+    message("Run 'kitools_configure()' for a one-time setup.")
+    return (FALSE)
   } else {
     reticulate::use_python(py, required = TRUE)
+    return (TRUE)
   }
 }
 
-config_message <- function() {
-  message("It appears that kitools has not been configured...")
-  message("Run 'kitools_configure()' for a one-time setup.")
-}
-
 #' One-time configuration of environment for kitools
+#'
 #' @details This installs an isolated Python distribution along with required dependencies so that the kitools R package can seamlessly wrap the kitools Python package.
 #' @export
 kitools_configure <- function() {
