@@ -21,13 +21,22 @@ is_configured <- function() {
 #' @export
 kitools_configure <- function() {
   # install isolated miniconda
-  rminiconda::install_miniconda(version = 3, name = "kitools")
+  py <- suppressWarnings(rminiconda::find_miniconda_python("kitools"))
+  if (!file.exists(py))
+    rminiconda::install_miniconda(version = 3, name = "kitools")
   # install python packages
   py <- rminiconda::find_miniconda_python("kitools")
-  pip <- rminiconda::find_miniconda_pip("kitools")
-  system2(pip, " install beautifultable")
-  system2(pip, " install synapseclient")
-  system2(pip, " install -i https://test.pypi.org/simple/ kitools")
+  pip_install("beautifultable")
+  pip_install("synapseclient")
+  pip_install("kitools", "-i https://test.pypi.org/simple/ kitools")
 
   reticulate::use_python(py, required = TRUE)
+}
+
+pip_install <- function(name, args = "") {
+  pip <- rminiconda::find_miniconda_pip("kitools")
+  args <- paste0(" install ", name, " ", args)
+  res <- system2(pip, args)
+  if (res != 0)
+    warning("There was an issue installing Python module '", name, "'.")
 }
