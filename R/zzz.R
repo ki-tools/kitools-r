@@ -1,5 +1,7 @@
 #' @importFrom rminiconda find_miniconda_python
 .onLoad <- function(libname, pkgname) {
+  Sys.setenv(PYTHONHOME = "")
+  Sys.setenv(PYTHONPATH = "")
   is_configured()
 }
 
