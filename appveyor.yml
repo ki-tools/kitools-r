@@ -4,6 +4,7 @@ platform: x64
 
 environment:
   R_ARCH: x64
+  PKGTYPE: binary
 
 # Download script file from GitHub
 init:
