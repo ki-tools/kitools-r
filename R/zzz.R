@@ -1,17 +1,19 @@
-#' @importFrom rminiconda find_miniconda_python
+#' @import rminiconda
 .onLoad <- function(libname, pkgname) {
   Sys.setenv(PYTHONHOME = "")
   Sys.setenv(PYTHONPATH = "")
-  is_configured()
+  is_configured(msg = packageStartupMessage)
 }
 
-is_configured <- function() {
-  py <- suppressWarnings(rminiconda::find_miniconda_python("kitools"))
-  if (!file.exists(py)) {
-    message("It appears that kitools has not been configured...")
-    message("Run 'kitools_configure()' for a one-time setup.")
+#' @param msg What function to use for messages (could be called at package startup or elsewhere in the package)
+is_configured <- function(msg = message) {
+  # should also check that the required packages are installed
+  if (!rminiconda::is_miniconda_installed("kitools")) {
+    msg("It appears that kitools has not been configured...")
+    msg("Run 'kitools_configure()' for a one-time setup.")
     return (FALSE)
   } else {
+    py <- rminiconda::find_miniconda_python("kitools")
     reticulate::use_python(py, required = TRUE)
     return (TRUE)
   }
@@ -23,14 +25,14 @@ is_configured <- function() {
 #' @export
 kitools_configure <- function() {
   # install isolated miniconda
-  py <- suppressWarnings(rminiconda::find_miniconda_python("kitools"))
-  if (!file.exists(py))
+  if (!rminiconda::is_miniconda_installed("kitools"))
     rminiconda::install_miniconda(version = 3, name = "kitools")
   # install python packages
   py <- rminiconda::find_miniconda_python("kitools")
-  pip_install("beautifultable")
-  pip_install("synapseclient")
-  pip_install("kitools", "-i https://test.pypi.org/simple/ kitools")
+  rminiconda::rminiconda_pip_install("beautifultable", "kitools")
+  rminiconda::rminiconda_pip_install("synapseclient", "kitools")
+  rminiconda::rminiconda_pip_install("kitools", "kitools",
+    "-i https://test.pypi.org/simple/ kitools")
 
   reticulate::use_python(py, required = TRUE)
 }
