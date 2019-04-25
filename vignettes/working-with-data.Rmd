@@ -1,0 +1,26 @@
+---
+title: "Working With Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Working With Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  eval = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+TODO
+
+```{r, class.source="rmd-r-chunk", fig.show='hold'}
+# R code here
+```
+
+```{python, class.source="rmd-py-chunk", fig.show='hold'}
+# Python code here
+```

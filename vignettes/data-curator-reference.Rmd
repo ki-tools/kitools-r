@@ -1,0 +1,18 @@
+---
+title: "Data Curator's Reference"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Curator's Reference}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  eval = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+TODO

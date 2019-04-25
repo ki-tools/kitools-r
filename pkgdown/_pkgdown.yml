@@ -1,0 +1,52 @@
+template:
+  params:
+    bootswatch: flatly
+
+navbar:
+  title: "Tools for Ki Data Scientists"
+  type: inverse
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Articles"
+      menu:
+        - text: "Installation and Setup"
+          href: articles/install-and-setup.html
+        - text: "Working with Data"
+          href: articles/working-with-data.html
+        - text: "Data Curator's Reference"
+          href: articles/data-curator-reference.html
+    - text: "Reference"
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+  right:
+   - icon: fa-github
+     href: https://github.com/ki-tools/kitools-py
+
+reference:
+
+  - title: "Project Initialization"
+    contents:
+      - ki_project
+      - syn_login
+      - kitools_configure
+
+  - title: "Working with Data"
+    contents:
+      - data_add
+      - data_pull
+      - data_push
+      - data_remove
+      - data_change
+      - data_list
+      - show_missing_resources
+      - find_missing_resources
+      - find_project_resource_by
+      - find_project_resources_by
+
+# is_project_data_type_path
+# load
+# save
+# data_type_from_project_path
+# data_type_to_project_path
