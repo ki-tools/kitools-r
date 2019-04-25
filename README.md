@@ -1,9 +1,9 @@
-[![Travis build status](https://travis-ci.org/ki-tools/kitools.svg?branch=master)](https://travis-ci.org/ki-tools/kitools-r) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/ki-tools/kitools-r?branch=master&svg=true)](https://ci.appveyor.com/project/hafen/kitools-r) [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build status](https://travis-ci.org/ki-tools/kitools.svg?branch=master)](https://travis-ci.org/ki-tools/kitools-r) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/ki-tools/kitools-r?branch=master&svg=true)](https://ci.appveyor.com/project/hafen/kitools-r)
 <!-- [![Coverage status](https://codecov.io/gh/ki-tools/kitools-r/branch/master/graph/badge.svg)](https://codecov.io/github/ki-tools/kitools-r?branch=master) -->
 
 # kitools
 
-Tools for working with data in Ki analyses. Based on an [earlier prototype](https://github.com/ki-tools/kitools) - see that package's [README](https://github.com/ki-tools/kitools#kitools) for more background. This is an an alpha stage of development and is built around the [kitools Python package](https://github.com/ki-tools/kitools-py).
+Tools for working with data in [Ki](https://kiglobalhealth.org) analyses.
 
 ## Installation
 
@@ -11,14 +11,6 @@ You can install this package from GitHub with:
 
 ``` r
 devtools::install_github("ki-tools/kitools-r")
-```
-
-Currently, to use this package you need to have Python (>=v3.6) installed and the `kitools-py` Python package installed. We are working to remove this prerequisite.
-
-```bash
-pip install beautifultable
-pip install synapseclient
-pip install -i https://test.pypi.org/simple/ kitools
 ```
 
 ## Example
