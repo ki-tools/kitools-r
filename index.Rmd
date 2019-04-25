@@ -6,11 +6,65 @@ output: html_document
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# Tools for Ki Data Scientists
+# Tools for KI Data Scientists
 
-[![Build Status](https://travis-ci.org/ki-tools/kitools-py.svg?branch=master)](https://travis-ci.org/ki-tools/kitools-py)
-[![Build status](https://ci.appveyor.com/api/projects/status/307n6qcdywewtext/branch/master?svg=true)](https://ci.appveyor.com/project/Patrick33219/kitools-py/branch/master)
+<!--[![Build Status](https://travis-ci.org/ki-tools/kitools-py.svg?branch=master)](https://travis-ci.org/ki-tools/kitools-py)
+[![Build status](https://ci.appveyor.com/api/projects/status/307n6qcdywewtext/branch/master?svg=true)](https://ci.appveyor.com/project/Patrick33219/kitools-py/branch/master)-->
 [![Travis build status](https://travis-ci.org/ki-tools/kitools.svg?branch=master)](https://travis-ci.org/ki-tools/kitools-r)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/ki-tools/kitools-r?branch=master&svg=true)](https://ci.appveyor.com/project/hafen/kitools-r)
 
-The **kitools** package provides...
+The **kitools** package provides utilities for data scientists working on [Knowledge Integration](https://kiglobalhealth.org) (KI) projects and supporting workflows within these projects.
+
+The kitools package is available as both Python and R packages. **To tailor this documentation to your language of choice, use the R/Python toggle in the navigation bar.** This introduction provides background and an overview of package functionality. To learn how to install and use the package, follow the links in the "Articles" menu in the navigation bar.
+
+## KI Data Workflows
+
+The primary workflow supported by kitools is working with **data** that is stored in **repositories on content nodes**.
+
+#### Types of data in KI
+
+In KI projects, there are three major classes of data:
+
+- **Core data**: Data that has gone through rigorous vetting and processing from the KI data curation team, available in central "core data" repositories on content nodes such as [Synapse](https://www.synapse.org).
+- **Discovered data**: Datasets that you may have found somewhere outside of KI that you have processed and added to your analysis. These datasets should be registered with your project and shared in a repository that corresponds to your analysis on a content node such as Synapse. If later deemed to be generally useful to projects beyond your analysis, these datasets should be considered for additional curation and promotion to a core dataset.
+- **Analysis artifact data**: These are datasets that are created throughout the course of your analysis. Examples include summarizations of core or discovered datasets, analysis output data objects (such as model fits), tables, plot-ready data, etc. Artifacts relevant to important results of an analysis should be shared in your analysis repository on a content node such as Synapse.
+
+#### Types of repositories on content nodes
+
+- **Core data repositories**: These are repositories, currently on Synapse (but potentially on additional content nodes in the future), that house **core datasets** (e.g. `KiData_MNCH_Controlled`). These repositories are managed by the data curation team, who have read/write access to the respositories. Data scientists pull data from these repositories to use in their KI analyses, but do not have write access to the repositories.
+- **KI analysis repositories**: Each individual analysis in KI has its own content repository. Currently we use Synapse for this. For example, any sprint in a data science rally has its own Synapse space (e.g. Rally 9A has it's own space). Data scientists working on an analysis use kitools to store analysis-specific **discovered data** and **analysis artifact data** in these spaces.
+
+#### Associating data with a KI project
+
+KI data scientists perform their work on a local workstation, but they need a way to get the data they need to analyze to their workstation as well as to share data coming out of their analysis.
+
+The kitools package provides functionality that helps you register all data associated with your analysis and handles pushing and pulling that data to and from the content node. This is handled through the notion of a "KI project".
+
+#### KI projects
+
+At the heart of the kitools package is the notion of a "KI project", which is a directory on the data scientist's workstation in which all analysis data, code and artifacts are stored, and a corresponding **analysis Synapse repository**.
+
+The package provides a function that initializes a KI project directory and Synapse space (or can associate the project with an existing analysis Synapse space), with additional functions that help you register datasets that are associated with the analysis. All datasets are tracked in a KI project "manifest" file, which provides a mapping of data in the local directory and where the data is located on Synapse.
+
+#### Typical KI project workflow
+
+A typical KI analysis begins with the specification of **core datasets** that will be used in the analysis, with functions to add these datasets to the project manifest and pull them from their corresponding **core data repository** spaces on Synapse.
+
+Then, throughout the analysis, as the data scientist adds **discovered data** or creates **analysis artifact data**, these can be added and pushed to the KI project's **KI analysis repository**.
+
+You can learn the specifics of doing this in the "Articles" documents accessible from the navigation bar.
+
+#### Why use KI projects and kitools
+
+There are many reasons for keeping a close tracking of data used in KI analyses and providing the push/pull of the data between the analyst's workstation and the content node. These include:
+
+- Keep datasets you are using and producing organized and sharable with others. 
+- Avoid manually downloading data.
+- Better provenance, reproducibility, and collaboration.
+- Capture important analysis metadata, such as what studies are associated with an analysis.
+- Separate the tracking and storage of data from the tracking and storage of analysis source code (code repositories such as GitHub are not amenable to storing data, and don't have rich metadata mechanisms that content nodes such as Synapse does).
+- Knowing where the data is can help with safeguards (such as removing core datasets from a local workstation when finished with an analysis).
+
+### Dive in
+
+To get started using kitools, visit the [installation and setup guide](articles/install-and-setup.html).

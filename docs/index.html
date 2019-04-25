@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">kitools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -89,9 +89,77 @@
     
 <div id="tools-for-ki-data-scientists" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#tools-for-ki-data-scientists" class="anchor"></a>Tools for Ki Data Scientists</h1></div>
+<a href="#tools-for-ki-data-scientists" class="anchor"></a>Tools for KI Data Scientists</h1></div>
+<!--[![Build Status](https://travis-ci.org/ki-tools/kitools-py.svg?branch=master)](https://travis-ci.org/ki-tools/kitools-py)
+[![Build status](https://ci.appveyor.com/api/projects/status/307n6qcdywewtext/branch/master?svg=true)](https://ci.appveyor.com/project/Patrick33219/kitools-py/branch/master)-->
 
-<p>The <strong>kitools</strong> package provides…</p>
+<p>The <strong>kitools</strong> package provides utilities for data scientists working on <a href="https://kiglobalhealth.org">Knowledge Integration</a> (KI) projects and supporting workflows within these projects.</p>
+<p>The kitools package is available as both Python and R packages. <strong>To tailor this documentation to your language of choice, use the R/Python toggle in the navigation bar.</strong> This introduction provides background and an overview of package functionality. To learn how to install and use the package, follow the links in the “Articles” menu in the navigation bar.</p>
+<div id="ki-data-workflows" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ki-data-workflows" class="anchor"></a>KI Data Workflows</h2>
+<p>The primary workflow supported by kitools is working with <strong>data</strong> that is stored in <strong>repositories on content nodes</strong>.</p>
+<div id="types-of-data-in-ki" class="section level4">
+<h4 class="hasAnchor">
+<a href="#types-of-data-in-ki" class="anchor"></a>Types of data in KI</h4>
+<p>In KI projects, there are three major classes of data:</p>
+<ul>
+<li>
+<strong>Core data</strong>: Data that has gone through rigorous vetting and processing from the KI data curation team, available in central “core data” repositories on content nodes such as <a href="https://www.synapse.org">Synapse</a>.</li>
+<li>
+<strong>Discovered data</strong>: Datasets that you may have found somewhere outside of KI that you have processed and added to your analysis. These datasets should be registered with your project and shared in a repository that corresponds to your analysis on a content node such as Synapse. If later deemed to be generally useful to projects beyond your analysis, these datasets should be considered for additional curation and promotion to a core dataset.</li>
+<li>
+<strong>Analysis artifact data</strong>: These are datasets that are created throughout the course of your analysis. Examples include summarizations of core or discovered datasets, analysis output data objects (such as model fits), tables, plot-ready data, etc. Artifacts relevant to important results of an analysis should be shared in your analysis repository on a content node such as Synapse.</li>
+</ul>
+</div>
+<div id="types-of-repositories-on-content-nodes" class="section level4">
+<h4 class="hasAnchor">
+<a href="#types-of-repositories-on-content-nodes" class="anchor"></a>Types of repositories on content nodes</h4>
+<ul>
+<li>
+<strong>Core data repositories</strong>: These are repositories, currently on Synapse (but potentially on additional content nodes in the future), that house <strong>core datasets</strong> (e.g. <code>KiData_MNCH_Controlled</code>). These repositories are managed by the data curation team, who have read/write access to the respositories. Data scientists pull data from these repositories to use in their KI analyses, but do not have write access to the repositories.</li>
+<li>
+<strong>KI analysis repositories</strong>: Each individual analysis in KI has its own content repository. Currently we use Synapse for this. For example, any sprint in a data science rally has its own Synapse space (e.g. Rally 9A has it’s own space). Data scientists working on an analysis use kitools to store analysis-specific <strong>discovered data</strong> and <strong>analysis artifact data</strong> in these spaces.</li>
+</ul>
+</div>
+<div id="associating-data-with-a-ki-project" class="section level4">
+<h4 class="hasAnchor">
+<a href="#associating-data-with-a-ki-project" class="anchor"></a>Associating data with a KI project</h4>
+<p>KI data scientists perform their work on a local workstation, but they need a way to get the data they need to analyze to their workstation as well as to share data coming out of their analysis.</p>
+<p>The kitools package provides functionality that helps you register all data associated with your analysis and handles pushing and pulling that data to and from the content node. This is handled through the notion of a “KI project”.</p>
+</div>
+<div id="ki-projects" class="section level4">
+<h4 class="hasAnchor">
+<a href="#ki-projects" class="anchor"></a>KI projects</h4>
+<p>At the heart of the kitools package is the notion of a “KI project”, which is a directory on the data scientist’s workstation in which all analysis data, code and artifacts are stored, and a corresponding <strong>analysis Synapse repository</strong>.</p>
+<p>The package provides a function that initializes a KI project directory and Synapse space (or can associate the project with an existing analysis Synapse space), with additional functions that help you register datasets that are associated with the analysis. All datasets are tracked in a KI project “manifest” file, which provides a mapping of data in the local directory and where the data is located on Synapse.</p>
+</div>
+<div id="typical-ki-project-workflow" class="section level4">
+<h4 class="hasAnchor">
+<a href="#typical-ki-project-workflow" class="anchor"></a>Typical KI project workflow</h4>
+<p>A typical KI analysis begins with the specification of <strong>core datasets</strong> that will be used in the analysis, with functions to add these datasets to the project manifest and pull them from their corresponding <strong>core data repository</strong> spaces on Synapse.</p>
+<p>Then, throughout the analysis, as the data scientist adds <strong>discovered data</strong> or creates <strong>analysis artifact data</strong>, these can be added and pushed to the KI project’s <strong>KI analysis repository</strong>.</p>
+<p>You can learn the specifics of doing this in the “Articles” documents accessible from the navigation bar.</p>
+</div>
+<div id="why-use-ki-projects-and-kitools" class="section level4">
+<h4 class="hasAnchor">
+<a href="#why-use-ki-projects-and-kitools" class="anchor"></a>Why use KI projects and kitools</h4>
+<p>There are many reasons for keeping a close tracking of data used in KI analyses and providing the push/pull of the data between the analyst’s workstation and the content node. These include:</p>
+<ul>
+<li>Keep datasets you are using and producing organized and sharable with others.</li>
+<li>Avoid manually downloading data.</li>
+<li>Better provenance, reproducibility, and collaboration.</li>
+<li>Capture important analysis metadata, such as what studies are associated with an analysis.</li>
+<li>Separate the tracking and storage of data from the tracking and storage of analysis source code (code repositories such as GitHub are not amenable to storing data, and don’t have rich metadata mechanisms that content nodes such as Synapse does).</li>
+<li>Knowing where the data is can help with safeguards (such as removing core datasets from a local workstation when finished with an analysis).</li>
+</ul>
+</div>
+<div id="dive-in" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dive-in" class="anchor"></a>Dive in</h3>
+<p>To get started using kitools, visit the <a href="articles/install-and-setup.html">installation and setup guide</a>.</p>
+</div>
+</div>
 </div>
   </div>
 
@@ -123,8 +191,6 @@
       <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/ki-tools/kitools-py"><img src="https://travis-ci.org/ki-tools/kitools-py.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/Patrick33219/kitools-py/branch/master"><img src="https://ci.appveyor.com/api/projects/status/307n6qcdywewtext/branch/master?svg=true" alt="Build status"></a></li>
 <li><a href="https://travis-ci.org/ki-tools/kitools-r"><img src="https://travis-ci.org/ki-tools/kitools.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://ci.appveyor.com/project/hafen/kitools-r"><img src="https://ci.appveyor.com/api/projects/status/github/ki-tools/kitools-r?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
 </ul>

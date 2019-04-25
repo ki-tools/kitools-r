@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kitools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -94,10 +94,61 @@
 
     
     
-<p>TODO</p>
+<p>To accomodate the vast majority of KI data scientists, the kitools package is available in both R and Python.</p>
+<p>This installation and setup article covers both languages, but in the package usage articles, you can use the R/Python toggle in the navigation bar to change the code examples to the language of your choice.</p>
+<div id="sign-up-for-synapse" class="section level2">
+<h2 class="hasAnchor">
+<a href="#sign-up-for-synapse" class="anchor"></a>Sign up for Synapse</h2>
+<p>Before installing kitools, you should make sure you have a <a href="https://www.synapse.org">Synapse</a> account. The <a href="https://www.synapse.org">landing page of Synapse</a> contains straightforward directions for this. Make note of your Synapse email and password.</p>
+</div>
+<div id="install-kitools-in-python" class="section level2">
+<h2 class="hasAnchor">
+<a href="#install-kitools-in-python" class="anchor"></a>Install kitools in Python</h2>
+<p>If you are using Python, you can install the kitools package using <code>pip</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1">pip install <span class="op">--</span>index<span class="op">-</span>url https:<span class="op">//</span>test.pypi.org<span class="op">/</span>simple<span class="op">/</span> <span class="op">--</span>extra<span class="op">-</span>index<span class="op">-</span>url https:<span class="op">//</span>pypi.org<span class="op">/</span>simple kitools</a></code></pre></div>
+<p>Note that kitools requires Python &gt;= 3.5.</p>
+</div>
+<div id="install-kitools-in-r" class="section level2">
+<h2 class="hasAnchor">
+<a href="#install-kitools-in-r" class="anchor"></a>Install kitools in R</h2>
+<p>In R, you can install the kitools package directly from Github using the <code>remotes</code> package:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"remotes"</span>) <span class="co"># (if not already installed)</span></a>
+<a class="sourceLine" id="cb2-2" title="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"ki-tools/kitools-r"</span>)</a></code></pre></div>
+<p>The kitools R package is simply a wrapper around the Python package. This is done to keep the package functionality and stability in sync. We have built the R package in a way that you <a href="https://github.com/hafen/rminiconda">need not be aware of anything Python-related</a>. Python and the associated packages are installed for you as part of an initial configuration. To configure your environment (this only needs to be done once), run the following:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(kitools)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../reference/kitools_configure.html">kitools_configure</a></span>()</a></code></pre></div>
+</div>
+<div id="store-synapse-credentials" class="section level2">
+<h2 class="hasAnchor">
+<a href="#store-synapse-credentials" class="anchor"></a>Store Synapse credentials</h2>
+<p>One additional step for getting set up to use kitools is to register your Synapse credentials in R or Python so that they can be cached and you don’t need to be prompted for them every time you do an operation that contacts Synapse.</p>
+<p>In Python:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="im">import</span> synapseclient</a>
+<a class="sourceLine" id="cb4-2" title="2">syn <span class="op">=</span> synapseclient.Synapse()</a>
+<a class="sourceLine" id="cb4-3" title="3">syn.login(__email__, __password__, rememberMe <span class="op">=</span> <span class="va">True</span>)</a></code></pre></div>
+<p>In R:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(kitools)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="../reference/syn_login.html">syn_login</a></span>(__email__, __password__)</a></code></pre></div>
+</div>
+<div id="using-the-package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-the-package" class="anchor"></a>Using the package</h2>
+<p>Now that you are set up, take a look at <a href="working-with-data.html">“Working With Data”</a>.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#sign-up-for-synapse">Sign up for Synapse</a></li>
+      <li><a href="#install-kitools-in-python">Install kitools in Python</a></li>
+      <li><a href="#install-kitools-in-r">Install kitools in R</a></li>
+      <li><a href="#store-synapse-credentials">Store Synapse credentials</a></li>
+      <li><a href="#using-the-package">Using the package</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
