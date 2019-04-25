@@ -13,13 +13,20 @@ Authors@R: c(
     )
 Description: Tools for working with data in Ki analyses.
 License: Apache License 2.0 | file LICENSE
+URL: https://github.com/ki-tools/kitools-r
+BugReports: https://github.com/ki-tools/kitools-r/issues
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.0)
 Imports: 
     reticulate,
     askpass,
     rminiconda
 RoxygenNote: 6.1.1
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 Remotes: hafen/rminiconda
+VignetteBuilder: knitr
