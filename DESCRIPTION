@@ -9,7 +9,11 @@ Authors@R: c(
     person(given = "Ryan",
            family = "Hafen",
            role = c("cre", "aut"),
-           email = "rhafen@gmail.com")
+           email = "rhafen@gmail.com"),
+    person(given = "Sergey",
+           family = "Feldman",
+           role = c("aut"),
+           email = "sergey@data-cowboys.com")
     )
 Description: Tools for working with data in Ki analyses.
 License: Apache License 2.0 | file LICENSE
