@@ -5,6 +5,7 @@
   is_configured(msg = packageStartupMessage)
 }
 
+#' Check to see if the kitools Python environment has been configured
 #' @param msg What function to use for messages (could be called at package startup or elsewhere in the package)
 is_configured <- function(msg = message) {
   # should also check that the required packages are installed
