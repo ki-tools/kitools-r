@@ -122,7 +122,7 @@ KiProject initialized successfully and ready to use.</code></pre>
 <a class="sourceLine" id="cb4-2" title="2">path &lt;-<span class="st"> "~/my_ki_project"</span></a>
 <a class="sourceLine" id="cb4-3" title="3">p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ki_project.html">ki_project</a></span>(path)</a></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="im">import</span> kitools</a>
-<a class="sourceLine" id="cb5-2" title="2">path <span class="op">=</span> <span class="st">"~/my_ki_project"</span></a>
+<a class="sourceLine" id="cb5-2" title="2">path <span class="op">=</span> <span class="st">'~/my_ki_project'</span></a>
 <a class="sourceLine" id="cb5-3" title="3">p <span class="op">=</span> kitools.KiProject(path)</a></code></pre></div>
 <pre><code>KiProject successfully loaded and ready to use.</code></pre>
 <p>You now use this KI project object, <code>p</code>, throughout your session to perform all your KI project operations.</p>
@@ -166,7 +166,7 @@ KiProject initialized successfully and ready to use.</code></pre>
 <p>Suppose we want to associate the following file with our KI project: Files -&gt; CPP -&gt; sdtm -&gt; subj.csv, which contains subject-level information for 500 of the CPP subjects. If you navigate to <a href="https://www.synapse.org/#!Synapse:syn18670920">that file in Synapse</a>, you will see that it has a Synapse identifier of <code>syn18670920</code>. This is what we use to associate the data with our analysis.</p>
 <p>We use <code><a href="../reference/data_add.html">data_add()</a></code> to add this data to our analysis, with the identifier <code>syn:syn18670920</code> as the first argument, then specifying that the <code>data_type</code> is “core”, and then giving this file a <code>name</code>, “cpp_subj”. The name is optional and is another way to refer to the file other than the identifier.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">f &lt;-<span class="st"> </span>p<span class="op">$</span><span class="kw"><a href="../reference/data_add.html">data_add</a></span>(<span class="st">"syn:syn18670920"</span>, <span class="dt">data_type =</span> <span class="st">"core"</span>, <span class="dt">name =</span> <span class="st">"cpp_subj"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1">f <span class="op">=</span> p.data_add(<span class="st">'syn:syn18670920'</span>, data_type <span class="op">=</span> <span class="st">'core'</span>, name <span class="op">=</span> <span class="st">'cpp_subj'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1">f <span class="op">=</span> p.data_add(<span class="st">'syn:syn18670920'</span>, data_type<span class="op">=</span><span class="st">'core'</span>, name<span class="op">=</span><span class="st">'cpp_subj'</span>)</a></code></pre></div>
 <p>The <code><a href="../reference/data_add.html">data_add()</a></code> function returns an object that provides some information about your data. If you print this object, you will see some of this information:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">f</a></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="bu">print</span>(f)</a></code></pre></div>
@@ -211,7 +211,7 @@ Absolute Path: [has not been pulled... use data_pull() to pull this dataset]</co
 <p>If you want to pull a directory, you can navigate to the directory in Synapse, find the directory’s URI, and supply that to <code><a href="../reference/data_add.html">data_add()</a></code>.</p>
 <p>Here, let’s add all the files in the Files -&gt; CPP directory. <a href="https://www.synapse.org/#!Synapse:syn18670524">This directory</a> has the URI <code>syn18670524</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_add.html">data_add</a></span>(<span class="st">"syn:syn18670524"</span>, <span class="dt">data_type =</span> <span class="st">"core"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1">p.data_add(<span class="st">'syn:syn18670524'</span>, data_type <span class="op">=</span> <span class="st">'core'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1">p.data_add(<span class="st">'syn:syn18670524'</span>, data_type<span class="op">=</span><span class="st">'core'</span>)</a></code></pre></div>
 <p>You can use <code><a href="../reference/data_list.html">data_list()</a></code> to see what this now looks like. Remember that to actually pull the data to your local project, you need to use <code><a href="../reference/data_pull.html">data_pull()</a></code>.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_pull.html">data_pull</a></span>(<span class="st">"syn:syn18670524"</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1">p.data_pull(<span class="st">'syn:syn18670524'</span>)</a></code></pre></div>
@@ -219,7 +219,7 @@ Absolute Path: [has not been pulled... use data_pull() to pull this dataset]</co
 Downloading  [####################]100.00%   121.6kB/121.6kB (14.7MB/s) anthro.csv Done...</code></pre>
 <p>We can now look at all the files that are associated with our analysis:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_list.html">data_list</a></span>(<span class="dt">all =</span> True)</a></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" title="1">p.data_list(<span class="bu">all</span> <span class="op">=</span> <span class="va">True</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" title="1">p.data_list(<span class="bu">all</span><span class="op">=</span><span class="va">True</span>)</a></code></pre></div>
 <pre><code>┌─────────────────┬─────────────────┬─────────┬─────────────────┬─────────────────────────────────┐
 │ Remote URI      │ Root URI        │ Version │ Name            │ Path                            │
 ├─────────────────┼─────────────────┼─────────┼─────────────────┼─────────────────────────────────┤
@@ -258,17 +258,18 @@ Downloading  [####################]100.00%   121.6kB/121.6kB (14.7MB/s) anthro.c
 <a class="sourceLine" id="cb29-6" title="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/tally.html">tally</a></span>()</a>
 <a class="sourceLine" id="cb29-7" title="7">path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(p<span class="op">$</span>data_path, <span class="st">"artifacts/cpp_summ.csv"</span>)</a>
 <a class="sourceLine" id="cb29-8" title="8">readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span>(cpp_summ, <span class="dt">path =</span> path)</a></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1"><span class="im">import</span> pandas</a>
-<a class="sourceLine" id="cb30-2" title="2"><span class="im">from</span> collections <span class="im">import</span> Counter</a>
-<a class="sourceLine" id="cb30-3" title="3">in_path <span class="op">=</span> p.local_path <span class="op">+</span> <span class="st">'/data/core/CPP/sdtm/anthro.csv'</span></a>
-<a class="sourceLine" id="cb30-4" title="4">df <span class="op">=</span> pandas.read_csv(in_path)</a>
-<a class="sourceLine" id="cb30-5" title="5"></a>
-<a class="sourceLine" id="cb30-6" title="6">cpp_summ <span class="op">=</span> pandas.DataFrame.from_dict(</a>
-<a class="sourceLine" id="cb30-7" title="7">  Counter(df.subjid),</a>
-<a class="sourceLine" id="cb30-8" title="8">  orient <span class="op">=</span> <span class="st">'index'</span>).reset_index()</a>
-<a class="sourceLine" id="cb30-9" title="9">cpp_summ <span class="op">=</span> cpp_summ.rename(columns <span class="op">=</span> {<span class="st">'index'</span>: <span class="st">'subjid'</span>, <span class="dv">0</span>: <span class="st">'n'</span>})</a>
-<a class="sourceLine" id="cb30-10" title="10">path <span class="op">=</span> p.data_path <span class="op">+</span> <span class="st">'/artifacts/cpp_summ.csv'</span></a>
-<a class="sourceLine" id="cb30-11" title="11">cpp_summ.to_csv(path, index <span class="op">=</span> <span class="va">False</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1"><span class="im">import</span> os</a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="im">import</span> pandas</a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="im">from</span> collections <span class="im">import</span> Counter</a>
+<a class="sourceLine" id="cb30-4" title="4">in_path <span class="op">=</span> os.path.join(p.local_path, <span class="st">'/data/core/CPP/sdtm/anthro.csv'</span>)</a>
+<a class="sourceLine" id="cb30-5" title="5">df <span class="op">=</span> pandas.read_csv(in_path)</a>
+<a class="sourceLine" id="cb30-6" title="6"></a>
+<a class="sourceLine" id="cb30-7" title="7">cpp_summ <span class="op">=</span> pandas.DataFrame.from_dict(</a>
+<a class="sourceLine" id="cb30-8" title="8">  Counter(df.subjid),</a>
+<a class="sourceLine" id="cb30-9" title="9">  orient<span class="op">=</span><span class="st">'index'</span>).reset_index()</a>
+<a class="sourceLine" id="cb30-10" title="10">cpp_summ <span class="op">=</span> cpp_summ.rename(columns<span class="op">=</span>{<span class="st">'index'</span>: <span class="st">'subjid'</span>, <span class="dv">0</span>: <span class="st">'n'</span>})</a>
+<a class="sourceLine" id="cb30-11" title="11">path <span class="op">=</span> p.data_path <span class="op">+</span> <span class="st">'/artifacts/cpp_summ.csv'</span></a>
+<a class="sourceLine" id="cb30-12" title="12">cpp_summ.to_csv(path, index <span class="op">=</span> <span class="va">False</span>)</a></code></pre></div>
 <p>Here we have read in a core dataset, done some simple analysis of tabulating number of measurements per subject, and have saved the result out in <code>data/artifacts</code>.</p>
 <p>We want to share this dataset so that it is registered with our analysis and available to others. Any local data that we add and push must be put in either the <code>artifacts</code> or <code>discovered</code> directories, and when we push the data, it will go the the Synapse space associated with our KI project.</p>
 </div>
@@ -387,8 +388,9 @@ Uploading [####################]100.00%   2.8kB/2.8kB  cpp_summ.csv Done...</cod
 <p>Good practice:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(p<span class="op">$</span>local_path, <span class="st">"data/core/subj.csv"</span>)</a>
 <a class="sourceLine" id="cb51-2" title="2">d &lt;-<span class="st"> </span><span class="kw">my_read_function</span>(path)</a></code></pre></div>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb52-1" title="1">path <span class="op">=</span> p.local_path <span class="op">+</span> <span class="st">'data/core/subj.csv'</span></a>
-<a class="sourceLine" id="cb52-2" title="2">d <span class="op">=</span> my_read_function(path)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb52-1" title="1"><span class="im">import</span> os</a>
+<a class="sourceLine" id="cb52-2" title="2">path <span class="op">=</span> os.path.join(p.local_path, <span class="st">'data/core/subj.csv'</span>)</a>
+<a class="sourceLine" id="cb52-3" title="3">d <span class="op">=</span> my_read_function(path)</a></code></pre></div>
 <p>In this case, we are appending the relative file’s path to the project’s local path. This is a useful way to construct paths when saving data.</p>
 <p>Bad practice:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">d &lt;-<span class="st"> </span><span class="kw">my_read_function</span>(<span class="st">"/home/me/my_ki_project/data/core/subj.csv"</span>)</a></code></pre></div>
@@ -402,7 +404,7 @@ Uploading [####################]100.00%   2.8kB/2.8kB  cpp_summ.csv Done...</cod
 <p>For example, the following three paths are the same:</p>
 <pre><code>"C:/home/me/my_ki_project/data/core/my_file.csv"
 r"C:\home\me\my_ki_project\data\core\my_file.csv"
-"C:\\home\me\my_ki_project\data\core\my_file.csv"</code></pre>
+"C:\\home\\me\\my_ki_project\\data\\core\\my_file.csv"</code></pre>
 </div>
 </div>
   </div>

@@ -61,7 +61,7 @@ In Python:
 ```{python}
 import synapseclient
 syn = synapseclient.Synapse()
-syn.login(__email__, __password__, rememberMe = True)
+syn.login(__email__, __password__, rememberMe=True)
 ```
 
 In R:

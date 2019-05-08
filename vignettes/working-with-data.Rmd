@@ -60,7 +60,7 @@ p <- ki_project(path)
 
 ```{python, class.source="rmd-py-chunk"}
 import kitools
-path = "~/my_ki_project"
+path = '~/my_ki_project'
 p = kitools.KiProject(path)
 ```
 
@@ -120,7 +120,7 @@ f <- p$data_add("syn:syn18670920", data_type = "core", name = "cpp_subj")
 ```
 
 ```{python, class.source="rmd-py-chunk"}
-f = p.data_add('syn:syn18670920', data_type = 'core', name = 'cpp_subj')
+f = p.data_add('syn:syn18670920', data_type='core', name='cpp_subj')
 ```
 
 The `data_add()` function returns an object that provides some information about your data. If you print this object, you will see some of this information:
@@ -210,7 +210,7 @@ p$data_add("syn:syn18670524", data_type = "core")
 ```
 
 ```{python, class.source="rmd-py-chunk"}
-p.data_add('syn:syn18670524', data_type = 'core')
+p.data_add('syn:syn18670524', data_type='core')
 ```
 
 You can use `data_list()` to see what this now looks like. Remember that to actually pull the data to your local project, you need to use `data_pull()`.
@@ -235,7 +235,7 @@ p$data_list(all = True)
 ```
 
 ```{python, class.source="rmd-py-chunk"}
-p.data_list(all = True)
+p.data_list(all=True)
 ```
 
 ```
@@ -283,15 +283,16 @@ readr::write_csv(cpp_summ, path = path)
 ```
 
 ```{python, class.source="rmd-py-chunk"}
+import os
 import pandas
 from collections import Counter
-in_path = p.local_path + '/data/core/CPP/sdtm/anthro.csv'
+in_path = os.path.join(p.local_path, '/data/core/CPP/sdtm/anthro.csv')
 df = pandas.read_csv(in_path)
 
 cpp_summ = pandas.DataFrame.from_dict(
   Counter(df.subjid),
-  orient = 'index').reset_index()
-cpp_summ = cpp_summ.rename(columns = {'index': 'subjid', 0: 'n'})
+  orient='index').reset_index()
+cpp_summ = cpp_summ.rename(columns={'index': 'subjid', 0: 'n'})
 path = p.data_path + '/artifacts/cpp_summ.csv'
 cpp_summ.to_csv(path, index = False)
 ```
@@ -482,7 +483,8 @@ d <- my_read_function(path)
 ```
 
 ```{python, class.source="rmd-py-chunk"}
-path = p.local_path + 'data/core/subj.csv'
+import os
+path = os.path.join(p.local_path, 'data/core/subj.csv')
 d = my_read_function(path)
 ```
 
@@ -509,5 +511,5 @@ For example, the following three paths are the same:
 ```
 "C:/home/me/my_ki_project/data/core/my_file.csv"
 r"C:\home\me\my_ki_project\data\core\my_file.csv"
-"C:\\home\me\my_ki_project\data\core\my_file.csv"
+"C:\\home\\me\\my_ki_project\\data\\core\\my_file.csv"
 ```
