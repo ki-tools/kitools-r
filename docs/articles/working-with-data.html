@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Working With Data • kitools</title>
+<title>KI Projects and Working With Data • kitools</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<script src="../extra.js"></script><meta property="og:title" content="Working With Data">
+<script src="../extra.js"></script><meta property="og:title" content="KI Projects and Working With Data">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -84,7 +84,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Working With Data</h1>
+      <h1>KI Projects and Working With Data</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ki-tools/kitools-r/blob/master/vignettes/working-with-data.Rmd"><code>vignettes/working-with-data.Rmd</code></a></small>
@@ -94,12 +94,338 @@
 
     
     
-<p>TODO</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># R code here</span></a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Python code here</span></a></code></pre></div>
+<p>This article covers how to set up a KI project and start working with data with kitools. If you need to install and configure kitools, please <a href="articles/install-and-setup.html">see this article</a>.</p>
+<div id="initializing-a-ki-project" class="section level2">
+<h2 class="hasAnchor">
+<a href="#initializing-a-ki-project" class="anchor"></a>Initializing a KI project</h2>
+<p>A KI project is a directory that will contain all the data, analysis scripts, and analysis results for your project. In addition to a local directory of analysis artifacts, a KI project is also linked to a space in Synapse where metadata about your project and results are stored.</p>
+<p>To initialize a KI project, you simply need to point it to an existing directory that you would like to use, or provide a path to a directory that doesn’t exist yet, and answer a series of interactive prompts:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(kitools)</a>
+<a class="sourceLine" id="cb1-2" title="2">path &lt;-<span class="st"> "~/my_ki_project"</span></a>
+<a class="sourceLine" id="cb1-3" title="3">p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ki_project.html">ki_project</a></span>(path)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1"><span class="im">import</span> kitools</a>
+<a class="sourceLine" id="cb2-2" title="2">path <span class="op">=</span> <span class="st">'~/my_ki_project'</span></a>
+<a class="sourceLine" id="cb2-3" title="3">p <span class="op">=</span> kitools.KiProject(path)</a></code></pre></div>
+<pre><code>Create KiProject in: ~/my_ki_project [y/n]: y
+KiProject title: kitools demo
+Create a remote project or use an existing? [c/e]: c
+Remote project name: kitools demo
+Remote project created at URI: syn:syn18625903
+KiProject initialized successfully and ready to use.</code></pre>
+<p>Here we specified our KI project title to be “kitools demo” and indicated that we want to create a new Synapse project to store data and results related to our analysis, also with the name “kitools demo”.</p>
+</div>
+<div id="loading-a-ki-project-in-subsequent-sessions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#loading-a-ki-project-in-subsequent-sessions" class="anchor"></a>Loading a KI project in subsequent sessions</h2>
+<p>Once you have initialized a KI project, the next time you enter your R or Python environment and load the project, instead of initializing, it will load the project.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(kitools)</a>
+<a class="sourceLine" id="cb4-2" title="2">path &lt;-<span class="st"> "~/my_ki_project"</span></a>
+<a class="sourceLine" id="cb4-3" title="3">p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ki_project.html">ki_project</a></span>(path)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="im">import</span> kitools</a>
+<a class="sourceLine" id="cb5-2" title="2">path <span class="op">=</span> <span class="st">"~/my_ki_project"</span></a>
+<a class="sourceLine" id="cb5-3" title="3">p <span class="op">=</span> kitools.KiProject(path)</a></code></pre></div>
+<pre><code>KiProject successfully loaded and ready to use.</code></pre>
+<p>You now use this KI project object, <code>p</code>, throughout your session to perform all your KI project operations.</p>
+</div>
+<div id="a-note-on-synapse-uris" class="section level2">
+<h2 class="hasAnchor">
+<a href="#a-note-on-synapse-uris" class="anchor"></a>A note on Synapse URIs</h2>
+<p>You may have noticed in the KI project setup that it informed us that the associated Synapse space created has a URI: <code>syn:syn18625903</code>. All objects in Synapse, including project spaces, files, etc., are identified by a Synapse ID, in this case, the project is identified by <code>"syn18625903"</code>. You can navigate to any Synapse object by appending this ID to the URL <code>https://www.synapse.org/#!Synapse:</code>. For example, you can visit the website for this Synapse project through the following link: <a href="https://www.synapse.org/#!Synapse:syn18625903">https://www.synapse.org/#!Synapse:syn18625903</a>.</p>
+<p>The prefix <code>syn:</code> of the Synapse URI <code>syn:syn18625903</code> is used to differentiate Synapse from other potential content nodes that may be supported by kitools in the future.</p>
+</div>
+<div id="ki-project-structure" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ki-project-structure" class="anchor"></a>KI project structure</h2>
+<p>What is the result of creating a KI project? As we have seen, it creates an associated Synapse space (or associates an existing Synapse space) to house data related to the analysis, but additionally it sets up a file structure in your local project directory:</p>
+<!-- system(paste0("tree -d ", path)) -->
+<pre><code>~/my_ki_project
+├── data
+│   ├── artifacts
+│   ├── core
+│   └── discovered
+├── kiproject.json
+├── reports
+└── scripts</code></pre>
+<p>The “data” directory and its subdirectories are where data will be stored locally. The “reports” and “scripts” directories are empty directories that you can use to store analysis scripts and reports. While you can organize your scripts and reports in any manner you would like, the data directory and its subdirectories should not be changed.</p>
+<p>The file “kiproject.json” stores all of the project metadata, including the project title, the Synapse space URI, and a listing of all datasets associated with the analysis and where they are located on Synapse.</p>
+</div>
+<div id="associating-data-with-a-ki-project" class="section level2">
+<h2 class="hasAnchor">
+<a href="#associating-data-with-a-ki-project" class="anchor"></a>Associating data with a KI project</h2>
+<p>With kitools, you can either associate a <strong>local dataset</strong> or a <strong>remote dataset</strong> with your KI project. After associating a <strong>local dateset</strong>, you can <strong>push</strong> this dataset to be synced with your analysis Synapse project. After associating a <strong>remote dataset</strong> located somewhere on Synapse, you can <strong>pull</strong> that dataset so that it is available for you to analyze locally.</p>
+<div id="adding-a-remote-core-dataset" class="section level3">
+<h3 class="hasAnchor">
+<a href="#adding-a-remote-core-dataset" class="anchor"></a>Adding a remote core dataset</h3>
+<p>Typically to start out, you will identify one or more remote core datasets on Synapse that you want to use in your analysis. As mentioned previously, all files on Synapse have a unique identifier. We can associate a remote file or directory of files on Synapse with our KI project by calling the <code><a href="../reference/data_add.html">data_add()</a></code> function with the appropriate Synapse ID.</p>
+<div id="adding-data-with-data_add" class="section level4">
+<h4 class="hasAnchor">
+<a href="#adding-data-with-data_add" class="anchor"></a>Adding data with <code><a href="../reference/data_add.html">data_add()</a></code>
+</h4>
+<p>For example, we have created a “mock” core data Synapse space located <a href="https://www.synapse.org/#!Synapse:syn18667273">here</a>. These datasets are simply for demonstration purposes and are based on a sample of the openly available <a href="https://www.archives.gov/research/electronic-records/nih.html">Collaborative Perinatal Project (CPP)</a> data.</p>
+<p>If you navigate to the <a href="https://www.synapse.org/#!Synapse:syn18667273/files/">“Files”</a> page of the Synapse space (by clicking “Files” tab on the page), you will see a directory listing of studies.</p>
+<p>Suppose we want to associate the following file with our KI project: Files -&gt; CPP -&gt; sdtm -&gt; subj.csv, which contains subject-level information for 500 of the CPP subjects. If you navigate to <a href="https://www.synapse.org/#!Synapse:syn18670920">that file in Synapse</a>, you will see that it has a Synapse identifier of <code>syn18670920</code>. This is what we use to associate the data with our analysis.</p>
+<p>We use <code><a href="../reference/data_add.html">data_add()</a></code> to add this data to our analysis, with the identifier <code>syn:syn18670920</code> as the first argument, then specifying that the <code>data_type</code> is “core”, and then giving this file a <code>name</code>, “cpp_subj”. The name is optional and is another way to refer to the file other than the identifier.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">f &lt;-<span class="st"> </span>p<span class="op">$</span><span class="kw"><a href="../reference/data_add.html">data_add</a></span>(<span class="st">"syn:syn18670920"</span>, <span class="dt">data_type =</span> <span class="st">"core"</span>, <span class="dt">name =</span> <span class="st">"cpp_subj"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" title="1">f <span class="op">=</span> p.data_add(<span class="st">'syn:syn18670920'</span>, data_type <span class="op">=</span> <span class="st">'core'</span>, name <span class="op">=</span> <span class="st">'cpp_subj'</span>)</a></code></pre></div>
+<p>The <code><a href="../reference/data_add.html">data_add()</a></code> function returns an object that provides some information about your data. If you print this object, you will see some of this information:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">f</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="bu">print</span>(f)</a></code></pre></div>
+<pre><code>Name: cpp_subj
+Date Type: core
+Version: [latest]
+Remote URI: syn:syn18670920
+Absolute Path: [has not been pulled... use data_pull() to pull this dataset]</code></pre>
+<p>NOTE: this print functionality isn’t yet in the master branch.</p>
+</div>
+<div id="pulling-the-data" class="section level4">
+<h4 class="hasAnchor">
+<a href="#pulling-the-data" class="anchor"></a>Pulling the data</h4>
+<p>Now that the file has been associated with our analysis, as we saw in the printout, we need to use <code><a href="../reference/data_pull.html">data_pull()</a></code> to pull the data to our local KI project, using the name or URI to indicate the file to pull.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">f &lt;-<span class="st"> </span>p<span class="op">$</span><span class="kw"><a href="../reference/data_pull.html">data_pull</a></span>(<span class="st">"cpp_subj"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" title="1">f <span class="op">=</span> p.data_pull(<span class="st">'cpp_subj'</span>)</a></code></pre></div>
+<pre><code>Downloading  [####################]100.00%   51.1kB/51.1kB (403.9kB/s) subj.csv Done...</code></pre>
+<p>To look at what is returned:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">f</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" title="1">f</a></code></pre></div>
+<p>NOTE: open issue: should it be project resource instead of string?</p>
+<p>Now we can see in the printout that the file is available for us to read at <code>data/core/subj.csv</code>.</p>
+<p>Calling <code><a href="../reference/data_pull.html">data_pull()</a></code> with no arguments pulls any resource that needs to be pulled and will return a path or list of paths to these files.</p>
+</div>
+</div>
+<div id="listing-data-associated-with-our-ki-project" class="section level3">
+<h3 class="hasAnchor">
+<a href="#listing-data-associated-with-our-ki-project" class="anchor"></a>Listing data associated with our KI project</h3>
+<p>To see what files are associated with our analysis, we can use the <code><a href="../reference/data_list.html">data_list()</a></code> function.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_list.html">data_list</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" title="1">p.data_list()</a></code></pre></div>
+<pre><code>┌─────────────────┬─────────┬──────────┬────────────────────┐
+│ Remote URI      │ Version │ Name     │ Path               │
+├─────────────────┼─────────┼──────────┼────────────────────┤
+│ syn:syn18670920 │         │ cpp_subj │ data/core/subj.csv │
+└─────────────────┴─────────┴──────────┴────────────────────┘</code></pre>
+<p>This shows us the Synapse URI of the remote location of the file, the path of the local file, its name, and a version. If the version is blank, it means that you always want the latest version of the file associated with your project. To associate a specific version of a file with your project, you can use the <code>version</code> argument to <code><a href="../reference/data_add.html">data_add()</a></code>.</p>
+<div id="adding-and-pulling-a-data-directory" class="section level4">
+<h4 class="hasAnchor">
+<a href="#adding-and-pulling-a-data-directory" class="anchor"></a>Adding and pulling a data directory</h4>
+<p>In addition to adding and pulling individual files, you can also add pull entire directories. This is done in a similar way to adding and pulling files.</p>
+<p>If you want to pull a directory, you can navigate to the directory in Synapse, find the directory’s URI, and supply that to <code><a href="../reference/data_add.html">data_add()</a></code>.</p>
+<p>Here, let’s add all the files in the Files -&gt; CPP directory. <a href="https://www.synapse.org/#!Synapse:syn18670524">This directory</a> has the URI <code>syn18670524</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_add.html">data_add</a></span>(<span class="st">"syn:syn18670524"</span>, <span class="dt">data_type =</span> <span class="st">"core"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" title="1">p.data_add(<span class="st">'syn:syn18670524'</span>, data_type <span class="op">=</span> <span class="st">'core'</span>)</a></code></pre></div>
+<p>You can use <code><a href="../reference/data_list.html">data_list()</a></code> to see what this now looks like. Remember that to actually pull the data to your local project, you need to use <code><a href="../reference/data_pull.html">data_pull()</a></code>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_pull.html">data_pull</a></span>(<span class="st">"syn:syn18670524"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" title="1">p.data_pull(<span class="st">'syn:syn18670524'</span>)</a></code></pre></div>
+<pre><code>Downloading  [####################]100.00%   311.6kB/311.6kB (631.6kB/s) analysis.csv Done...
+Downloading  [####################]100.00%   121.6kB/121.6kB (14.7MB/s) anthro.csv Done...</code></pre>
+<p>We can now look at all the files that are associated with our analysis:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_list.html">data_list</a></span>(<span class="dt">all =</span> True)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" title="1">p.data_list(<span class="bu">all</span> <span class="op">=</span> <span class="va">True</span>)</a></code></pre></div>
+<pre><code>┌─────────────────┬─────────────────┬─────────┬─────────────────┬─────────────────────────────────┐
+│ Remote URI      │ Root URI        │ Version │ Name            │ Path                            │
+├─────────────────┼─────────────────┼─────────┼─────────────────┼─────────────────────────────────┤
+│ syn:syn18670524 │                 │         │ syn:syn18670524 │ data/core/CPP                   │
+│ syn:syn18670601 │ syn:syn18670524 │         │ docs            │ data/core/CPP/docs              │
+│ syn:syn18670613 │ syn:syn18670524 │         │ fmt             │ data/core/CPP/fmt               │
+│ syn:syn18670645 │ syn:syn18670524 │         │ import          │ data/core/CPP/import            │
+│ syn:syn18670652 │ syn:syn18670524 │         │ jobs            │ data/core/CPP/jobs              │
+│ syn:syn18670661 │ syn:syn18670524 │         │ raw             │ data/core/CPP/raw               │
+│ syn:syn18670669 │ syn:syn18670524 │         │ sasmac          │ data/core/CPP/sasmac            │
+│ syn:syn18670677 │ syn:syn18670524 │         │ sdtm            │ data/core/CPP/sdtm              │
+│ syn:syn18670918 │ syn:syn18670524 │         │ analysis.csv    │ data/core/CPP/sdtm/analysis.csv │
+│ syn:syn18670919 │ syn:syn18670524 │         │ anthro.csv      │ data/core/CPP/sdtm/anthro.csv   │
+│ syn:syn18670920 │ syn:syn18670524 │         │ subj.csv        │ data/core/CPP/sdtm/subj.csv     │
+│ syn:syn18670920 │                 │         │ cpp_subj        │ data/core/subj.csv              │
+└─────────────────┴─────────────────┴─────────┴─────────────────┴─────────────────────────────────┘</code></pre>
+<p>Setting <code>all</code> to true lists all files, whereas the default is to only list files or directories that have explicitly been added with <code><a href="../reference/data_add.html">data_add()</a></code>.</p>
+</div>
+</div>
+</div>
+<div id="adding-a-local-data-artifact" class="section level2">
+<h2 class="hasAnchor">
+<a href="#adding-a-local-data-artifact" class="anchor"></a>Adding a local data artifact</h2>
+<p>Now that we have downloaded some core datasets, let’s do a quick analysis, create an analysis artifact, and push this back up to our KI project Synapse space.</p>
+<div id="creating-a-data-artifact" class="section level4">
+<h4 class="hasAnchor">
+<a href="#creating-a-data-artifact" class="anchor"></a>Creating a data artifact</h4>
+<p>Let’s load the <code>anthro.csv</code> file which contains anthropometric data for subjects in our sample of the CPP study, and summarize the number of measurements per subject.</p>
+<p>As we saw in our data listing, we can access the subject-level data with the relative path <code>data/core/CPP/sdtm/anthro.csv</code>.</p>
+<p>NOTE: this is where we would use a method <code>data_path()</code> to get the full path to a file by its name/URI</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb29-2" title="2">in_path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(p<span class="op">$</span>local_path, <span class="st">"data/core/CPP/sdtm/anthro.csv"</span>)</a>
+<a class="sourceLine" id="cb29-3" title="3">cpp &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(in_path)</a>
+<a class="sourceLine" id="cb29-4" title="4">cpp_summ &lt;-<span class="st"> </span>cpp <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(subjid) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/tally.html">tally</a></span>()</a>
+<a class="sourceLine" id="cb29-7" title="7">path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(p<span class="op">$</span>data_path, <span class="st">"artifacts/cpp_summ.csv"</span>)</a>
+<a class="sourceLine" id="cb29-8" title="8">readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span>(cpp_summ, <span class="dt">path =</span> path)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" title="1"><span class="im">import</span> pandas</a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="im">from</span> collections <span class="im">import</span> Counter</a>
+<a class="sourceLine" id="cb30-3" title="3">in_path <span class="op">=</span> p.local_path <span class="op">+</span> <span class="st">'/data/core/CPP/sdtm/anthro.csv'</span></a>
+<a class="sourceLine" id="cb30-4" title="4">df <span class="op">=</span> pandas.read_csv(in_path)</a>
+<a class="sourceLine" id="cb30-5" title="5"></a>
+<a class="sourceLine" id="cb30-6" title="6">cpp_summ <span class="op">=</span> pandas.DataFrame.from_dict(</a>
+<a class="sourceLine" id="cb30-7" title="7">  Counter(df.subjid),</a>
+<a class="sourceLine" id="cb30-8" title="8">  orient <span class="op">=</span> <span class="st">'index'</span>).reset_index()</a>
+<a class="sourceLine" id="cb30-9" title="9">cpp_summ <span class="op">=</span> cpp_summ.rename(columns <span class="op">=</span> {<span class="st">'index'</span>: <span class="st">'subjid'</span>, <span class="dv">0</span>: <span class="st">'n'</span>})</a>
+<a class="sourceLine" id="cb30-10" title="10">path <span class="op">=</span> p.data_path <span class="op">+</span> <span class="st">'/artifacts/cpp_summ.csv'</span></a>
+<a class="sourceLine" id="cb30-11" title="11">cpp_summ.to_csv(path, index <span class="op">=</span> <span class="va">False</span>)</a></code></pre></div>
+<p>Here we have read in a core dataset, done some simple analysis of tabulating number of measurements per subject, and have saved the result out in <code>data/artifacts</code>.</p>
+<p>We want to share this dataset so that it is registered with our analysis and available to others. Any local data that we add and push must be put in either the <code>artifacts</code> or <code>discovered</code> directories, and when we push the data, it will go the the Synapse space associated with our KI project.</p>
+</div>
+<div id="associating-the-data-artifact-with-our-analysis" class="section level4">
+<h4 class="hasAnchor">
+<a href="#associating-the-data-artifact-with-our-analysis" class="anchor"></a>Associating the data artifact with our analysis</h4>
+<p>We have placed the summary data artifact in the location pointed to by the variable <code>path</code>. We can call <code><a href="../reference/data_add.html">data_add()</a></code> with this path to associate this local file with our project.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_add.html">data_add</a></span>(path)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb32-1" title="1">f <span class="op">=</span> p.data_add(path)</a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="bu">print</span>(f)</a></code></pre></div>
+<pre><code>Name: cpp_summ.csv
+Date Type: artifacts
+Version: [latest]
+Remote URI: [has not been pushed... use data_push() to push this dataset]
+Absolute Path: data/artifacts/cpp_summ.csv</code></pre>
+<p>Note that we are told that the file has not been pushed.</p>
+</div>
+<div id="pushing-the-data-artifact" class="section level4">
+<h4 class="hasAnchor">
+<a href="#pushing-the-data-artifact" class="anchor"></a>Pushing the data artifact</h4>
+<p>We can push the file simply by calling <code><a href="../reference/data_push.html">data_push()</a></code> using its name.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_push.html">data_push</a></span>(<span class="st">"cpp_summ.csv"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb35-1" title="1">p.data_push(<span class="st">'cpp_summ.csv'</span>)</a></code></pre></div>
+<pre><code>##################################################
+ Uploading file to Synapse storage 
+##################################################
+
+Uploading [####################]100.00%   2.8kB/2.8kB  cpp_summ.csv Done...</code></pre>
+<p>Note that if you call <code><a href="../reference/data_push.html">data_push()</a></code> without any arguments, all files that haven’t been pushed will be pushed.</p>
+<p>Now when we list the files associated with our analysis, we see <code>cpp_summ.csv</code>.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_list.html">data_list</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" title="1">p.data_list()</a></code></pre></div>
+<pre><code>┌─────────────────┬─────────┬─────────────────┬─────────────────────────────┐
+│ Remote URI      │ Version │ Name            │ Path                        │
+├─────────────────┼─────────┼─────────────────┼─────────────────────────────┤
+│ syn:syn18670977 │         │ cpp_summ.csv    │ data/artifacts/cpp_summ.csv │
+│ syn:syn18670524 │         │ syn:syn18670524 │ data/core/CPP               │
+│ syn:syn18670920 │         │ cpp_subj        │ data/core/subj.csv          │
+└─────────────────┴─────────┴─────────────────┴─────────────────────────────┘</code></pre>
+</div>
+</div>
+<div id="adding-a-local-discovered-dataset" class="section level2">
+<h2 class="hasAnchor">
+<a href="#adding-a-local-discovered-dataset" class="anchor"></a>Adding a local discovered dataset</h2>
+<p>Discovered datasets are data that you may have found outside of the core datasets that are useful for augmenting your analysis, but are not artifacts of analyzing data. For example, perhaps you have found weather data for regions for which you have data in your core datasets. To add a discovered dataset, you can place all relevant files in a subdirectory inside the <code>data/discovered</code> directory of your KI project. Then you can call <code><a href="../reference/data_add.html">data_add()</a></code> and <code><a href="../reference/data_push.html">data_push()</a></code> just as you did with the artifact data in the example above.</p>
+</div>
+<div id="checking-for-untracked-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#checking-for-untracked-data" class="anchor"></a>Checking for untracked data</h2>
+<p>To help you make sure all of the data files you have produced in your analysis have been tracked, a utility function <code><a href="../reference/show_missing_resources.html">show_missing_resources()</a></code> will find all local files that have not been tracked in your project.</p>
+<p>For example, suppose that you saved a file <code>data/discovered/weather/forecasts.csv</code> but haven’t <code><a href="../reference/data_add.html">data_add()</a></code>-ed it yet.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/show_missing_resources.html">show_missing_resources</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">p.show_missing_resources</span>()</a></code></pre></div>
+<pre><code>WARNING: The following local resources have not been added to this KiProject.
+ - data/discovered/weather/forecasts.csv</code></pre>
+</div>
+<div id="removing-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#removing-data" class="anchor"></a>Removing data</h2>
+<p>If you would like to disassociate a file with your analysis, you can use <code><a href="../reference/data_remove.html">data_remove()</a></code> and pass in the remote URI or name of the file. This will disassociate the file, but will not remove the file from the file system. You can then manually remove the file.</p>
+<p>For example, suppose we do not want to track the <code>data/core/CPP/raw</code> directory. Looking at <code><a href="../reference/data_list.html">data_list()</a></code> with <code>all</code> set to true, we see that this has a Synapse URI of <code>syn:syn18670524</code>.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1">p<span class="op">$</span><span class="kw"><a href="../reference/data_remove.html">data_remove</a></span>(<span class="st">"syn:syn18670524"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw">p.data_remove</span>(<span class="st">'syn:syn18670524'</span>)</a></code></pre></div>
+</div>
+<div id="a-note-on-versions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#a-note-on-versions" class="anchor"></a>A note on versions</h2>
+<p>The default behavior when adding a remote file is to always pull the latest version. However, if your analysis depends on specific versions of data files, you can</p>
+<div id="pulling-a-specific-version" class="section level4">
+<h4 class="hasAnchor">
+<a href="#pulling-a-specific-version" class="anchor"></a>Pulling a specific version</h4>
+<p>If you wish to pull a specific version of a file, you can use the <code>version</code> argument when you call <code><a href="../reference/data_add.html">data_add()</a></code>. You can view what versions of a file exist by looking at the file in Synapse.</p>
+</div>
+<div id="pushing-updated-versions-of-a-file" class="section level4">
+<h4 class="hasAnchor">
+<a href="#pushing-updated-versions-of-a-file" class="anchor"></a>Pushing updated versions of a file</h4>
+<p>If you keep pushing to the same URI, the file will be replaced in Synapse and its version will be incremented.</p>
+</div>
+</div>
+<div id="updating-existing-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#updating-existing-data" class="anchor"></a>Updating existing data</h2>
+<p>TODO: <code><a href="../reference/data_change.html">data_change()</a></code> example.</p>
+</div>
+<div id="a-note-on-paths" class="section level2">
+<h2 class="hasAnchor">
+<a href="#a-note-on-paths" class="anchor"></a>A note on paths</h2>
+<p>As a rule of thumb, when working with files in KI projects, it is best to avoid hard-coding absolute paths. This makes your code more portable when sharing with others.</p>
+<div id="loading-your-ki-project" class="section level4">
+<h4 class="hasAnchor">
+<a href="#loading-your-ki-project" class="anchor"></a>Loading your KI project</h4>
+<p>Loading/initializing your KI project requires you to specify the path to the project. To make your code portable, we recommend that you first create the directory and then launch R/Python from within this directory, so that you can load your KI project with a relative path to the current directory, <code>"."</code>.</p>
+<p>For example, suppose your KI project is located at <code>/home/me/my_ki_project</code>.</p>
+<p>Good practice:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># launch R from /home/me/my_ki_project</span></a>
+<a class="sourceLine" id="cb45-2" title="2">p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ki_project.html">ki_project</a></span>(<span class="st">"."</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb46-1" title="1"><span class="co"># launch Python from /home/me/my_ki_project</span></a>
+<a class="sourceLine" id="cb46-2" title="2">p <span class="op">=</span> kitools.KiProject(<span class="st">"."</span>)</a></code></pre></div>
+<p>Bad practice:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ki_project.html">ki_project</a></span>(<span class="st">"/home/me/my_ki_project"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb48-1" title="1">p <span class="op">=</span> kitools.KiProject(<span class="st">"/home/me/my_ki_project"</span>)</a></code></pre></div>
+<p>This is a bad practice because this is not necessarily where the path will be on other user’s computers when they are running your code.</p>
+</div>
+<div id="loadingsaving-data" class="section level4">
+<h4 class="hasAnchor">
+<a href="#loadingsaving-data" class="anchor"></a>Loading/saving data</h4>
+<p>Rather than hard-coding absolute paths when loading data files associated with your KI project, specify paths using your project path helper functions.</p>
+<p>For example, suppose you want to load the file <code>/home/me/my_ki_project/data/core/subj.csv</code>.</p>
+<p>Good practice:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">path &lt;-<span class="st"> </span>p<span class="op">$</span><span class="kw">data_path</span>(<span class="st">"cpp_subj"</span>)</a>
+<a class="sourceLine" id="cb49-2" title="2">d &lt;-<span class="st"> </span><span class="kw">my_read_function</span>(path)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb50-1" title="1">path <span class="op">=</span> p.data_path(<span class="st">"cpp_subj"</span>)</a>
+<a class="sourceLine" id="cb50-2" title="2">d <span class="op">=</span> my_read_function(path)</a></code></pre></div>
+<p>In this case, we are referencing an existing registered file by name and getting it’s full path back with `data_path().</p>
+<p>NOTE: <code>data_path()</code> as illustrated not implemented yet…</p>
+<p>Good practice:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(p<span class="op">$</span>local_path, <span class="st">"data/core/subj.csv"</span>)</a>
+<a class="sourceLine" id="cb51-2" title="2">d &lt;-<span class="st"> </span><span class="kw">my_read_function</span>(path)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb52-1" title="1">path <span class="op">=</span> p.local_path <span class="op">+</span> <span class="st">'data/core/subj.csv'</span></a>
+<a class="sourceLine" id="cb52-2" title="2">d <span class="op">=</span> my_read_function(path)</a></code></pre></div>
+<p>In this case, we are appending the relative file’s path to the project’s local path. This is a useful way to construct paths when saving data.</p>
+<p>Bad practice:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r rmd-r-chunk"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">d &lt;-<span class="st"> </span><span class="kw">my_read_function</span>(<span class="st">"/home/me/my_ki_project/data/core/subj.csv"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python rmd-py-chunk"><code class="sourceCode python"><a class="sourceLine" id="cb54-1" title="1">d <span class="op">=</span> my_read_function(<span class="st">'/home/me/my_ki_project/data/core/subj.csv'</span>)</a></code></pre></div>
+<p>Again, this is a bad practice because it is not portable.</p>
+</div>
+<div id="absolute-paths-in-windows" class="section level4">
+<h4 class="hasAnchor">
+<a href="#absolute-paths-in-windows" class="anchor"></a>Absolute paths in Windows</h4>
+<p>Note that in Windows, there are 3 valid ways to specify an absolute path.</p>
+<p>For example, the following three paths are the same:</p>
+<pre><code>"C:/home/me/my_ki_project/data/core/my_file.csv"
+r"C:\home\me\my_ki_project\data\core\my_file.csv"
+"C:\\home\me\my_ki_project\data\core\my_file.csv"</code></pre>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#initializing-a-ki-project">Initializing a KI project</a></li>
+      <li><a href="#loading-a-ki-project-in-subsequent-sessions">Loading a KI project in subsequent sessions</a></li>
+      <li><a href="#a-note-on-synapse-uris">A note on Synapse URIs</a></li>
+      <li><a href="#ki-project-structure">KI project structure</a></li>
+      <li><a href="#associating-data-with-a-ki-project">Associating data with a KI project</a></li>
+      <li><a href="#adding-a-local-data-artifact">Adding a local data artifact</a></li>
+      <li><a href="#adding-a-local-discovered-dataset">Adding a local discovered dataset</a></li>
+      <li><a href="#checking-for-untracked-data">Checking for untracked data</a></li>
+      <li><a href="#removing-data">Removing data</a></li>
+      <li><a href="#a-note-on-versions">A note on versions</a></li>
+      <li><a href="#updating-existing-data">Updating existing data</a></li>
+      <li><a href="#a-note-on-paths">A note on paths</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

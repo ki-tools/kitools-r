@@ -28,7 +28,10 @@ Before installing kitools, you should make sure you have a [Synapse](https://www
 If you are using Python, you can install the kitools package using `pip`.
 
 ```{python}
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple kitools
+pip install \
+  --index-url https://test.pypi.org/simple/ \
+  --extra-index-url https://pypi.org/simple \
+  kitools
 ```
 
 Note that kitools requires Python >= 3.5.
@@ -70,4 +73,4 @@ syn_login(__email__, __password__)
 
 ## Using the package
 
-Now that you are set up, take a look at ["Working With Data"](working-with-data.html).
+Now that you are set up, take a look at ["KI Projects and Working With Data"](working-with-data.html).

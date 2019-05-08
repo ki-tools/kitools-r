@@ -58,6 +58,10 @@ h2.hasAnchor {
   margin-bottom: 60px;
 }
 
+pre.text {
+  background-color: white;
+}
+
 pre:not([class]) {
   background-color: white;
 }
