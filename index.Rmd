@@ -26,17 +26,17 @@ The primary workflow supported by kitools is working with **data** that is store
 In KI projects, there are three major classes of data:
 
 - **Core data**: Data that has gone through rigorous vetting and processing from the KI data curation team, available in central "core data" repositories on content nodes such as [Synapse](https://www.synapse.org).
-- **Discovered data**: Datasets that you may have found somewhere outside of KI that you have processed and added to your analysis. These datasets should be registered with your project and shared in a repository that corresponds to your analysis on a content node such as Synapse. If later deemed to be generally useful to projects beyond your analysis, these datasets should be considered for additional curation and promotion to a core dataset.
-- **Analysis artifact data**: These are datasets that are created throughout the course of your analysis. Examples include summarizations of core or discovered datasets, analysis output data objects (such as model fits), tables, plot-ready data, etc. Artifacts relevant to important results of an analysis should be shared in your analysis repository on a content node such as Synapse.
+- **Auxiliary data**: Datasets that you may have found somewhere outside of KI that you have processed and added to your analysis. These datasets should be registered with your project and shared in a repository that corresponds to your analysis on a content node such as Synapse. If later deemed to be generally useful to projects beyond your analysis, these datasets should be considered for additional curation and promotion to a core dataset.
+- **Analysis artifacts and results**: These are datasets, tables, figures, etc. that are created throughout the course of your analysis. Examples include summarizations of core or auxiliary datasets, analysis output data objects (such as model fits), tables, plot-ready data, etc. Artifacts relevant to important results of an analysis should be shared in your analysis repository on a content node such as Synapse.
 
 #### Types of repositories on content nodes
 
 - **Core data repositories**: These are repositories, currently on Synapse (but potentially on additional content nodes in the future), that house **core datasets** (e.g. `KiData_MNCH_Controlled`). These repositories are managed by the data curation team, who have read/write access to the respositories. Data scientists pull data from these repositories to use in their KI analyses, but do not have write access to the repositories.
-- **KI analysis repositories**: Each individual analysis in KI has its own content repository. Currently we use Synapse for this. For example, any sprint in a data science rally has its own Synapse space (e.g. Rally 9A has it's own space). Data scientists working on an analysis use kitools to store analysis-specific **discovered data** and **analysis artifact data** in these spaces.
+- **KI analysis repositories**: Each individual analysis in KI has its own content repository. Currently we use Synapse for this. For example, any sprint in a data science rally has its own Synapse space (e.g. Rally 9A has it's own space). Data scientists working on an analysis use kitools to store analysis-specific **auxiliary data** and **analysis artifacts** in these spaces.
 
 #### Associating data with a KI project
 
-KI data scientists perform their work on a local workstation, but they need a way to get the data they need to analyze to their workstation as well as to share data coming out of their analysis.
+KI data scientists perform their work on a local workstation, but they need a way to get the data they need to analyze to their workstation as well as to share data and results coming out of their analysis.
 
 The kitools package provides functionality that helps you register all data associated with your analysis and handles pushing and pulling that data to and from the content node. This is handled through the notion of a "KI project".
 
@@ -50,7 +50,7 @@ The package provides a function that initializes a KI project directory and Syna
 
 A typical KI analysis begins with the specification of **core datasets** that will be used in the analysis, with functions to add these datasets to the project manifest and pull them from their corresponding **core data repository** spaces on Synapse.
 
-Then, throughout the analysis, as the data scientist adds **discovered data** or creates **analysis artifact data**, these can be added and pushed to the KI project's **KI analysis repository**.
+Then, throughout the analysis, as the data scientist adds **auxiliary data** or creates **analysis artifacts and results**, these can be added and pushed to the KI project's **KI analysis repository**.
 
 You can learn the specifics of doing this in the "Articles" documents accessible from the navigation bar.
 

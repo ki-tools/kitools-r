@@ -38,6 +38,22 @@ kitools_configure <- function() {
   reticulate::use_python(py, required = TRUE)
 }
 
+#' Update kitools environment configuration
+#'
+#' @details This updates the kitools Python dependencies.
+#' @export
+kitools_update <- function() {
+  if (!is_configured())
+    return(invisible(NULL))
+
+  # install python packages
+  rminiconda::rminiconda_pip_uninstall("synapseclient", "kitools")
+  rminiconda::rminiconda_pip_uninstall("kitools", "kitools")
+  rminiconda::rminiconda_pip_install("synapseclient", "kitools")
+  rminiconda::rminiconda_pip_install("kitools", "kitools",
+    "-i https://test.pypi.org/simple/ kitools")
+}
+
 pip_install <- function(name, args = "") {
   pip <- rminiconda::find_miniconda_pip("kitools")
   args <- paste0(" install ", name, " ", args)

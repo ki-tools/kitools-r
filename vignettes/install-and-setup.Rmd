@@ -27,7 +27,7 @@ Before installing kitools, you should make sure you have a [Synapse](https://www
 
 If you are using Python, you can install the kitools package using `pip`.
 
-```{python}
+```
 pip install \
   --index-url https://test.pypi.org/simple/ \
   --extra-index-url https://pypi.org/simple \

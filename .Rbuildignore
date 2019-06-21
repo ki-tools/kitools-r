@@ -12,3 +12,5 @@
 ^_ignore
 ^.vscode
 ^code-gen
+^index.Rmd
+^pkgdown

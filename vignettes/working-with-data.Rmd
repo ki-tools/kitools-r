@@ -17,13 +17,17 @@ knitr::opts_chunk$set(
 # rminiconda_pip_install("https://github.com/ki-tools/kitools-py/archive/i20-resource-str-details.zip", "kitools")
 ```
 
-This article covers how to set up a KI project and start working with data with kitools. If you need to install and configure kitools, please [see this article](articles/install-and-setup.html).
+This article covers how to set up a KI project and start working with data with kitools. If you need to install and configure kitools, please [see this article](install-and-setup.html).
 
 ## Initializing a KI project
 
 A KI project is a directory that will contain all the data, analysis scripts, and analysis results for your project. In addition to a local directory of analysis artifacts, a KI project is also linked to a space in Synapse where metadata about your project and results are stored.
 
 To initialize a KI project, you simply need to point it to an existing directory that you would like to use, or provide a path to a directory that doesn't exist yet, and answer a series of interactive prompts:
+
+```{r, eval=FALSE, echo=FALSE}
+unlink("~/my_ki_project", recursive = TRUE)
+```
 
 ```{r, class.source="rmd-r-chunk"}
 library(kitools)
@@ -42,7 +46,7 @@ Create KiProject in: ~/my_ki_project [y/n]: y
 KiProject title: kitools demo
 Create a remote project or use an existing? [c/e]: c
 Remote project name: kitools demo
-Remote project created at URI: syn:syn18625903
+Remote project created at URI: syn:syn19550300
 KiProject initialized successfully and ready to use.
 ```
 
@@ -72,9 +76,9 @@ You now use this KI project object, `p`, throughout your session to perform all 
 
 ## A note on Synapse URIs
 
-You may have noticed in the KI project setup that it informed us that the associated Synapse space created has a URI: `syn:syn18625903`. All objects in Synapse, including project spaces, files, etc., are identified by a Synapse ID, in this case, the project is identified by `"syn18625903"`. You can navigate to any Synapse object by appending this ID to the URL `https://www.synapse.org/#!Synapse:`. For example, you can visit the website for this Synapse project through the following link: [https://www.synapse.org/#!Synapse:syn18625903](https://www.synapse.org/#!Synapse:syn18625903).
+You may have noticed in the KI project setup that it informed us that the associated Synapse space created has a URI: `syn:syn19550300`. All objects in Synapse, including project spaces, files, etc., are identified by a Synapse ID, in this case, the project is identified by `"syn19550300"`. You can navigate to any Synapse object by appending this ID to the URL `https://www.synapse.org/#!Synapse:`. For example, you can visit the website for this Synapse project through the following link: [https://www.synapse.org/#!Synapse:syn19550300](https://www.synapse.org/#!Synapse:syn19550300).
 
-The prefix `syn:` of the Synapse URI `syn:syn18625903` is used to differentiate Synapse from other potential content nodes that may be supported by kitools in the future.
+The prefix `syn:` of the Synapse URI `syn:syn19550300` is used to differentiate Synapse from other potential content nodes that may be supported by kitools in the future.
 
 ## KI project structure
 
@@ -85,15 +89,14 @@ What is the result of creating a KI project? As we have seen, it creates an asso
 ```
 ~/my_ki_project
 ├── data
-│   ├── artifacts
-│   ├── core
-│   └── discovered
-├── kiproject.json
+│   ├── auxiliary
+│   └── core
 ├── reports
+├── results
 └── scripts
 ```
 
-The "data" directory and its subdirectories are where data will be stored locally. The "reports" and "scripts" directories are empty directories that you can use to store analysis scripts and reports. While you can organize your scripts and reports in any manner you would like, the data directory and its subdirectories should not be changed.
+The "data" directory and its subdirectories are where data will be stored locally. The "reports" and "scripts" directories are empty directories that you can use to store analysis scripts and reports. While you can organize your reports, results, scripts, and auxiliary data in any manner you would like, the core data directory and its subdirectories should not be changed, as they are typically pulled from Synapse and treated as "read-only".
 
 The file "kiproject.json" stores all of the project metadata, including the project title, the Synapse space URI, and a listing of all datasets associated with the analysis and where they are located on Synapse.
 
@@ -103,7 +106,7 @@ With kitools, you can either associate a **local dataset** or a **remote dataset
 
 ### Adding a remote core dataset
 
-Typically to start out, you will identify one or more remote core datasets on Synapse that you want to use in your analysis. As mentioned previously, all files on Synapse have a unique identifier. We can associate a remote file or directory of files on Synapse with our KI project by calling the `data_add()` function with the appropriate Synapse ID.
+Typically to start out, you will identify one or more remote **core** datasets on Synapse that you want to use in your analysis. As mentioned previously, all files on Synapse have a unique identifier. We can associate a remote file or directory of files on Synapse with our KI project by calling the `data_add()` function with the appropriate Synapse ID.
 
 #### Adding data with `data_add()`
 
@@ -171,7 +174,7 @@ f
 
 NOTE: open issue: should it be project resource instead of string?
 
-Now we can see in the printout that the file is available for us to read at `data/core/subj.csv`.
+Now we can see in the printout that the file is available for us to read at `data/core/CPP/sdtm/subj.csv`. Note that the directory structure for this file on Synapse is preserved locally.
 
 Calling `data_pull()` with no arguments pulls any resource that needs to be pulled and will return a path or list of paths to these files.
 
@@ -188,11 +191,11 @@ p.data_list()
 ```
 
 ```
-┌─────────────────┬─────────┬──────────┬────────────────────┐
-│ Remote URI      │ Version │ Name     │ Path               │
-├─────────────────┼─────────┼──────────┼────────────────────┤
-│ syn:syn18670920 │         │ cpp_subj │ data/core/subj.csv │
-└─────────────────┴─────────┴──────────┴────────────────────┘
+┌─────────────────┬─────────┬──────────┬─────────────────────────────┐
+│ Remote URI      │ Version │ Name     │ Path                        │
+├─────────────────┼─────────┼──────────┼─────────────────────────────┤
+│ syn:syn18670920 │         │ cpp_subj │ data/core/CPP/sdtm/subj.csv │
+└─────────────────┴─────────┴──────────┴─────────────────────────────┘
 ```
 
 This shows us the Synapse URI of the remote location of the file, the path of the local file, its name, and a version. If the version is blank, it means that you always want the latest version of the file associated with your project. To associate a specific version of a file with your project, you can use the `version` argument to `data_add()`.
@@ -226,12 +229,17 @@ p.data_pull('syn:syn18670524')
 ```
 Downloading  [####################]100.00%   311.6kB/311.6kB (631.6kB/s) analysis.csv Done...
 Downloading  [####################]100.00%   121.6kB/121.6kB (14.7MB/s) anthro.csv Done...
+Name: syn:syn18670524
+Date Type: <kitools.data_type.DataType>
+Version: [latest]
+Remote URI: syn:syn18670524
+Absolute Path: ~/my_ki_project/data/core/CPP
 ```
 
 We can now look at all the files that are associated with our analysis:
 
 ```{r, class.source="rmd-r-chunk"}
-p$data_list(all = True)
+p$data_list(all = TRUE)
 ```
 
 ```{python, class.source="rmd-py-chunk"}
@@ -252,8 +260,8 @@ p.data_list(all=True)
 │ syn:syn18670677 │ syn:syn18670524 │         │ sdtm            │ data/core/CPP/sdtm              │
 │ syn:syn18670918 │ syn:syn18670524 │         │ analysis.csv    │ data/core/CPP/sdtm/analysis.csv │
 │ syn:syn18670919 │ syn:syn18670524 │         │ anthro.csv      │ data/core/CPP/sdtm/anthro.csv   │
+│ syn:syn18670920 │                 │         │ cpp_subj        │ data/core/CPP/sdtm/subj.csv     │
 │ syn:syn18670920 │ syn:syn18670524 │         │ subj.csv        │ data/core/CPP/sdtm/subj.csv     │
-│ syn:syn18670920 │                 │         │ cpp_subj        │ data/core/subj.csv              │
 └─────────────────┴─────────────────┴─────────┴─────────────────┴─────────────────────────────────┘
 ```
 
@@ -278,7 +286,7 @@ cpp <- readr::read_csv(in_path)
 cpp_summ <- cpp %>%
   group_by(subjid) %>%
   tally()
-path <- file.path(p$data_path, "artifacts/cpp_summ.csv")
+path <- file.path(p$local_path, "results/cpp_summ.csv")
 readr::write_csv(cpp_summ, path = path)
 ```
 
@@ -299,7 +307,7 @@ cpp_summ.to_csv(path, index = False)
 
 Here we have read in a core dataset, done some simple analysis of tabulating number of measurements per subject, and have saved the result out in `data/artifacts`.
 
-We want to share this dataset so that it is registered with our analysis and available to others. Any local data that we add and push must be put in either the `artifacts` or `discovered` directories, and when we push the data, it will go the the Synapse space associated with our KI project.
+We want to share this dataset so that it is registered with our analysis and available to others. Any local data that we create can be placed in any of the project's subdirectories. In this case, it makes sense to put this analysis result in the `results` folder. We could put it in a subdirectory as well if we want to be more organized. When we push the data, it will go the the Synapse space associated with our KI project in a matching directory there.
 
 #### Associating the data artifact with our analysis
 
@@ -360,21 +368,21 @@ p.data_list()
 ┌─────────────────┬─────────┬─────────────────┬─────────────────────────────┐
 │ Remote URI      │ Version │ Name            │ Path                        │
 ├─────────────────┼─────────┼─────────────────┼─────────────────────────────┤
-│ syn:syn18670977 │         │ cpp_summ.csv    │ data/artifacts/cpp_summ.csv │
 │ syn:syn18670524 │         │ syn:syn18670524 │ data/core/CPP               │
-│ syn:syn18670920 │         │ cpp_subj        │ data/core/subj.csv          │
+│ syn:syn18670920 │         │ cpp_subj        │ data/core/CPP/sdtm/subj.csv │
+│ syn:syn19550584 │         │ cpp_summ.csv    │ results/cpp_summ.csv        │
 └─────────────────┴─────────┴─────────────────┴─────────────────────────────┘
 ```
 
-## Adding a local discovered dataset
+## Adding a local auxiliary dataset
 
-Discovered datasets are data that you may have found outside of the core datasets that are useful for augmenting your analysis, but are not artifacts of analyzing data. For example, perhaps you have found weather data for regions for which you have data in your core datasets. To add a discovered dataset, you can place all relevant files in a subdirectory inside the `data/discovered` directory of your KI project. Then you can call `data_add()` and `data_push()` just as you did with the artifact data in the example above.
+Auxiliary datasets are data that you may have found outside of the core datasets that are useful for augmenting your analysis, but are not artifacts of analyzing data. For example, perhaps you have found weather data for regions for which you have data in your core datasets. To add an auxiliary dataset, you can place all relevant files in a subdirectory inside the `data/auxiliary` directory of your KI project. Then you can call `data_add()` and `data_push()` just as you did with the artifact data in the example above.
 
 ## Checking for untracked data
 
 To help you make sure all of the data files you have produced in your analysis have been tracked, a utility function `show_missing_resources()` will find all local files that have not been tracked in your project.
 
-For example, suppose that you saved a file `data/discovered/weather/forecasts.csv` but haven't `data_add()`-ed it yet.
+For example, suppose that you saved a file `data/auxiliary/weather/forecasts.csv` but haven't `data_add()`-ed it yet.
 
 ```{r, class.source="rmd-r-chunk"}
 p$show_missing_resources()
@@ -386,21 +394,21 @@ p.show_missing_resources()
 
 ```
 WARNING: The following local resources have not been added to this KiProject.
- - data/discovered/weather/forecasts.csv
+ - data/auxiliary/weather/forecasts.csv
 ```
 
 ## Removing data
 
 If you would like to disassociate a file with your analysis, you can use `data_remove()` and pass in the remote URI or name of the file. This will disassociate the file, but will not remove the file from the file system. You can then manually remove the file.
 
-For example, suppose we do not want to track the `data/core/CPP/raw` directory. Looking at `data_list()` with `all` set to true, we see that this has a Synapse URI of `syn:syn18670524`.
+For example, suppose we do not want to track the `data/core/CPP/raw` directory. Looking at `data_list()` with `all` set to true, we see that this has a Synapse URI of `syn:syn18670661`.
 
 ```{r, class.source="rmd-r-chunk"}
-p$data_remove("syn:syn18670524")
+p$data_remove("syn:syn18670661")
 ```
 
 ```{r, class.source="rmd-r-chunk"}
-p.data_remove('syn:syn18670524')
+p.data_remove('syn:syn18670661')
 ```
 
 ## A note on versions
@@ -415,9 +423,11 @@ If you wish to pull a specific version of a file, you can use the `version` argu
 
 If you keep pushing to the same URI, the file will be replaced in Synapse and its version will be incremented.
 
+<!--
 ## Updating existing data
 
 TODO: `data_change()` example.
+-->
 
 ## A note on paths
 
@@ -429,7 +439,7 @@ Loading/initializing your KI project requires you to specify the path to the pro
 
 For example, suppose your KI project is located at `/home/me/my_ki_project`.
 
-Good practice:
+**Good practice:**
 
 ```{r, class.source="rmd-r-chunk"}
 # launch R from /home/me/my_ki_project
@@ -441,7 +451,7 @@ p <- ki_project(".")
 p = kitools.KiProject(".")
 ```
 
-Bad practice:
+**Bad practice:**
 
 ```{r, class.source="rmd-r-chunk"}
 p <- ki_project("/home/me/my_ki_project")
@@ -459,7 +469,7 @@ Rather than hard-coding absolute paths when loading data files associated with y
 
 For example, suppose you want to load the file `/home/me/my_ki_project/data/core/subj.csv`.
 
-Good practice:
+**Good practice:**
 
 ```{r, class.source="rmd-r-chunk"}
 path <- p$data_path("cpp_subj")
@@ -475,7 +485,7 @@ In this case, we are referencing an existing registered file by name and getting
 
 NOTE: `data_path()` as illustrated not implemented yet...
 
-Good practice:
+**Good practice:**
 
 ```{r, class.source="rmd-r-chunk"}
 path <- file.path(p$local_path, "data/core/subj.csv")
@@ -490,7 +500,7 @@ d = my_read_function(path)
 
 In this case, we are appending the relative file's path to the project's local path. This is a useful way to construct paths when saving data.
 
-Bad practice:
+**Bad practice:**
 
 ```{r, class.source="rmd-r-chunk"}
 d <- my_read_function("/home/me/my_ki_project/data/core/subj.csv")
