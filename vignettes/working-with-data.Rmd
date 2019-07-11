@@ -388,7 +388,7 @@ For example, suppose that you saved a file `data/auxiliary/weather/forecasts.csv
 p$show_missing_resources()
 ```
 
-```{r, class.source="rmd-r-chunk"}
+```{r, class.source="rmd-py-chunk"}
 p.show_missing_resources()
 ```
 
