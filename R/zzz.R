@@ -1,3 +1,5 @@
+# TODO: interactive prompts don't work in RStudio
+
 #' @import rminiconda
 .onLoad <- function(libname, pkgname) {
   Sys.setenv(PYTHONHOME = "")
