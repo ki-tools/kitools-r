@@ -4,10 +4,10 @@
 #' @param title title
 #' @param description description
 #' @param project_uri project_uri
-#' @param resources resources
+#' @param project_name project_name
 #' @export
 ki_project <- function(local_path, title = NULL, description = NULL,
-  project_uri = NULL, project_title = NULL, resources = NULL) {
+  project_uri = NULL, project_name = NULL) {
   if (!is_configured())
     return(invisible(NULL))
   kitools <- reticulate::import("kitools")
@@ -29,7 +29,10 @@ ki_project <- function(local_path, title = NULL, description = NULL,
   if (is.null(title))
     title <- readline("KiProject title: ")
 
-  if (is.null(project_title) && is.null(project_uri)) {
+  if (is.null(description))
+    description <- readline("KiProject description: ")
+
+  if (is.null(project_name) && is.null(project_uri)) {
     ans <- user_prompt("Create a remote project or use an existing?",
       c("c", "e"))
 
@@ -37,11 +40,12 @@ ki_project <- function(local_path, title = NULL, description = NULL,
       project_uri <- readline("Remote project URI: ")
 
     if (ans == "c")
-      project_title <- readline("Remote project name: ")
+      project_name <- readline("Remote project name: ")
   }
 
-  kitools$KiProject(local_path, title, description,
-    project_uri, resources, init_no_prompt = TRUE)
+  kitools$KiProject(local_path = local_path, title = title,
+    description = description, project_uri = project_uri,
+    project_name = project_name, no_prompt = TRUE)
 }
 
 user_prompt <- function(question, opts) {
