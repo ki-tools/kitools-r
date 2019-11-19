@@ -5,7 +5,7 @@
 \title{Initialize a kitools project}
 \usage{
 ki_project(local_path, title = NULL, description = NULL,
-  project_uri = NULL, resources = NULL)
+  project_uri = NULL, project_name = NULL)
 }
 \arguments{
 \item{local_path}{local_path}
@@ -16,7 +16,7 @@ ki_project(local_path, title = NULL, description = NULL,
 
 \item{project_uri}{project_uri}
 
-\item{resources}{resources}
+\item{project_name}{project_name}
 }
 \description{
 Initialize a kitools project
