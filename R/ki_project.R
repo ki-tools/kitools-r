@@ -4,15 +4,57 @@
 #' @param title title
 #' @param description description
 #' @param project_uri project_uri
-#' @param resources resources
+#' @param project_name project_name
 #' @export
 ki_project <- function(local_path, title = NULL, description = NULL,
-  project_uri = NULL, resources = NULL) {
+  project_uri = NULL, project_name = NULL) {
   if (!is_configured())
     return(invisible(NULL))
   kitools <- reticulate::import("kitools")
-  kitools$KiProject(local_path, title, description,
-  project_uri, resources)
+
+  if (missing(local_path))
+    stop("local_path is required.")
+
+  # just load it if it already exists
+  if (file.exists(file.path(local_path, "kiproject.json"))) {
+    res <- kitools$KiProject(local_path)
+    return(res)
+  }
+
+  ans <- user_prompt(paste0("Create KiProject in: ", local_path),
+    c("y", "n"))
+  if (ans == "n")
+    stop("KiProject initialization failed.", call. = FALSE)
+
+  if (is.null(title))
+    title <- readline("KiProject title: ")
+
+  if (is.null(description))
+    description <- readline("KiProject description: ")
+
+  if (is.null(project_name) && is.null(project_uri)) {
+    ans <- user_prompt("Create a remote project or use an existing?",
+      c("c", "e"))
+
+    if (ans == "e")
+      project_uri <- readline("Remote project URI: ")
+
+    if (ans == "c")
+      project_name <- readline("Remote project name: ")
+  }
+
+  kitools$KiProject(local_path = local_path, title = title,
+    description = description, project_uri = project_uri,
+    project_name = project_name, no_prompt = TRUE)
+}
+
+user_prompt <- function(question, opts) {
+  msg <- paste0(question, " [", paste(opts, collapse = "/"), "]: ")
+  while (TRUE) {
+    ans <- tolower(readline(msg))
+    if (ans %in% opts)
+      return(ans)
+  }
 }
 
 print.kitools.ki_project.KiProject <- function(x, ...) {
