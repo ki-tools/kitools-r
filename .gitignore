@@ -5,3 +5,4 @@ inst/doc
 _ignore
 .vscode
 *.code-workspace
+.DS_Store

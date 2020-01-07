@@ -4,6 +4,7 @@
 .onLoad <- function(libname, pkgname) {
   Sys.setenv(PYTHONHOME = "")
   Sys.setenv(PYTHONPATH = "")
+  Sys.setenv(PYTHONUNBUFFERED = TRUE) # so print messages display in RStudio
   is_configured(msg = packageStartupMessage)
 }
 
